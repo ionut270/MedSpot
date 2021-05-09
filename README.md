@@ -68,11 +68,37 @@ Thus an app that will limit the waiting time of people in a que that will also r
 
 # Technical details
   **Who is this app for?**  
+  The app is for the users that want to protect themselves from the spread of the virus & for the people that don't like to wait in a que overall.
+  
   **What tasks the application solves**. 
+  Reduce waiting times for various physical applications such as waiting for in line to get to see a doctor.
+  Eliminate communication issues between 2 people (Wrong number date etc.)
+  See availability & modify an appointment without having to call the medical cabinet.
+  
   **On which devices can they use your application**  
+   Web browser & Mobile
+   
   **When do you want to get your mobile application finished?**
-  **What is your budget?** 
+  After the core Web browser app is fully functional.
+  
+  **What is your budget?**
+  1 whole dollar. 
+  
 # Tech overview
+
+Rest API based app with microservices.
+The app should use Google maps along with the geolocation API to determine and retrieve a list of available cabinets around the user.
+The server will handle that list & determine which cabinets are currently available or overcrowded.
+Then the Medic / Admin app can update the data accordingly to their needs.
+
+The medic app should be a basic table with easy editable data.
+The user is notified in case of any changes to his appointment.
+
+The user app uses the geolocation API & maps API to render a nice looking map with the available cabinet.
+The authentication of the user app is performed using the CNP of the user & a code that will be sent trough email or phone message to perform the auth.
+
+The user that registers is required to upload a picture of its id card, to prevent somebody else registering in the app with another email.
+
 # Architectural diagrams
 # Use case diagrams
 # Api - (openAPI & Swagger Hub)
