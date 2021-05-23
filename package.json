@@ -1,0 +1,30 @@
+{
+  "name": "medspot",
+  "version": "1.0.0",
+  "description": "App to manage patients, to a clinic or to a multitude of clinics",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionut270/MedSpot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ionut270/MedSpot/issues"
+  },
+  "homepage": "https://github.com/ionut270/MedSpot#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.8",
+    "mongoose": "^5.12.10",
+    "passport": "^0.4.1",
+    "path": "^0.12.7"
+  }
+}
