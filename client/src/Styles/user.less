@@ -1,0 +1,26 @@
+.user{
+    display: flex !important;
+    flex-flow: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100vw;
+}
+
+.user_avatar{
+    margin-top: .5em !important;
+}
+
+.user_data{
+    margin-top: 1em !important;
+}
+
+@media (orientation: portrait) {
+    .user_data{
+        width: 95vw;
+    }
+}
+@media (orientation: landscape) {
+    .user_data{
+        width: 400px;
+    }
+}
