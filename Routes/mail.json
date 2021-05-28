@@ -1,0 +1,12 @@
+{
+"Name": "test1",
+"Surname": "test2",
+"Email": "gozmit01@gmail.com",
+"Appointment": {
+    "Date": "",
+    "Hour": ""
+},
+"Medic": "",
+"Location": "",
+"Method": "Accept/Change"
+}
