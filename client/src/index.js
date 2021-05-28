@@ -8,8 +8,7 @@ import './Styles/index.less'
 
 // Import config and mutate it into the localstorage of the browser
 const config = require('./config.json');
-localStorage.config = config;
-
+localStorage.config = JSON.stringify(config);
 
 class Comp extends React.Component {
   render = () =>

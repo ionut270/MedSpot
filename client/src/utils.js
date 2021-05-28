@@ -5,7 +5,7 @@
  * @param {object} options 
  */
  var request = async (url, method, body) => {
-    var url = url.match(/http/) ? url : localStorage.config.server;
+    var url = url.match(/http/) ? url : JSON.parse(localStorage.config).server;
     var headers = { 'Content-Type': "application/json" }
     await new Promise((resolve, reject) => {
       fetch(url, { method: method, headers: headers, body: JSON.stringify(body) })

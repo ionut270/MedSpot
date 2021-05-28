@@ -62,7 +62,7 @@ export default class User extends React.Component {
                 <Card 
                     className="user_data" 
                     title={`${profile.name} ${profile.surname}`} 
-                    extra={<a href="#" onClick={this.editMode}>edit</a>}
+                    extra={<a onClick={this.editMode}>edit</a>}
                 >
                     <p>{edit ?
                         <Input addonBefore="Email" defaultValue={profile.email} /> :
