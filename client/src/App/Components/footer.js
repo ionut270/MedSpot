@@ -8,11 +8,11 @@ import '../../Styles/footer.less'
 export default class Footer extends React.Component {
     constructor(props){
         super(props);
-        this.state = { current: JSON.parse(localStorage.config).defaults.page };
+        this.state = { current: process.env.REACT_APP_DEFAULT_PAGE };
     }
     componentDidMount(){
-        this.props.changePage(JSON.parse(localStorage.config).defaults.page);
-        this.setState({current:JSON.parse(localStorage.config).defaults.page})
+        this.props.changePage(process.env.REACT_APP_DEFAULT_PAGE);
+        this.setState({current:process.env.REACT_APP_DEFAULT_PAGE})
     }
 
     handleClick = e => {

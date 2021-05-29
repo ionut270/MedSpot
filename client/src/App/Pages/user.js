@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, Avatar, Divider, Input, Button } from 'antd';
+import { Card, Avatar, Divider, Input, Button  } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import '../../Styles/user.less'
@@ -62,7 +62,7 @@ export default class User extends React.Component {
                 <Card 
                     className="user_data" 
                     title={`${profile.name} ${profile.surname}`} 
-                    extra={<a onClick={this.editMode}>edit</a>}
+                    extra={<Button onClick={this.editMode}>Edit</Button>}
                 >
                     <p>{edit ?
                         <Input addonBefore="Email" defaultValue={profile.email} /> :

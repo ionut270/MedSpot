@@ -4,17 +4,13 @@
  * @param {string} method 
  * @param {object} options 
  */
- var request = async (url, method, body) => {
-    var url = url.match(/http/) ? url : JSON.parse(localStorage.config).server;
-    var headers = { 'Content-Type': "application/json" }
-    await new Promise((resolve, reject) => {
-      fetch(url, { method: method, headers: headers, body: JSON.stringify(body) })
+ var request = (url, method, body) => {
+    url = url.match(/http/) ? url : process.env.REACT_APP_SERVER + url;
+    var headers = { 'Content-Type': "application/json", sessionID: localStorage.sessionID }
+    return new Promise((resolve, reject) => {
+      fetch(url, { method: method, headers: headers, body: body ? JSON.stringify(body) : null })
         .then(res => res.json())
-        .then(res => {
-          // disabled during development
-          // if (res.auth === false) { window.location.replace('/auth'); return 1; }
-          resolve(res.data); return 0;
-        })
+        .then(res => resolve(res))
         .catch(err => reject(err));
     })
   }
