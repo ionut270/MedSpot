@@ -124,6 +124,7 @@ async function searchCabinet(email) {
     };
     const result = await data.collection(process.env.DB_COL_CAB).findOne(filter, options);
     return result;
+    //return await --->>>
 }
 
 /*Operation for Docs*/
@@ -216,22 +217,25 @@ async function changeAppointment(infoApp, infoUp) {
     close();
 }
 
-async function searchAppointment(infoApp) {
-    const data = await connect();
-    const id1 = await searchUser(infoApp.emailUser);
-    const id2 = await searchDoc(infoApp.emailDoc);
-    const filter = {
-        user_id: `${id1._id}`,
-        medic_id: `${id2._id}`,
-        date: `${infoApp.dataApp}`,
-        hour: `${infoApp.hourApp}`
-    }
-    const options = {
-        projection: { _id: 1 }
-    };
-    const result = await data.collection(process.env.DB_COL_APP).findOne(filter, options);
-    close();
-    return result;
+function searchAppointment(infoApp) {
+    return new Promise(async (resolve,reject)=>{
+        const data = await connect();
+        const id1 = await searchUser(infoApp.emailUser);
+        const id2 = await searchDoc(infoApp.emailDoc);
+        const filter = {
+            user_id: `${id1._id}`,
+            medic_id: `${id2._id}`,
+            date: `${infoApp.dataApp}`,
+            hour: `${infoApp.hourApp}`
+        }
+        const options = {
+            projection: { _id: 1 }
+        };
+        const result = await data.collection(process.env.DB_COL_APP).findOne(filter, options);
+        close();
+        resolve(result); 
+    })
+    
 }
 
 async function deleteAppointment(infoApp) {

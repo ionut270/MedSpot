@@ -22,13 +22,38 @@ const UserSchema = new mongoose.Schema(
         cnp: { type: String },
     }
 )
+
+
 // Index for user schema
 UserSchema.index({ email: 1, cnp: 1 }, { unique: true })
 
 const SessionSchema = new mongoose.Schema({ _id: String },{ collection: 'sessions'})
 SessionSchema.index({"session.userId" : 1, _id: 1}, { unique: true });
 
+const DocsSchema=new mongoose.Schema({
+    "id_cabinet" : {type:Number,required:true},
+    "email" : {type:String, required:true},
+    "name" : {type:String,required:true},
+    "surname" : {type:String,required:true},
+    "phone_number" : {type:String,required:true},
+    "specialization" : [String],
+    "description" : String,
+    "rating" : {
+        "points" : Number,
+        "number_review" : Number,
+        "comments" : [ 
+            String
+        ]
+    }
+},{collection:'Docs'})
+DocsSchema.index({ email: 1}, { unique: true })
+
+
+
+
 module.exports = { 
     user: mongoose.model('User', UserSchema),
+    docs:mongoose.model('Docs',DocsSchema),
     session : mongoose.model('Session',SessionSchema)
 }
+

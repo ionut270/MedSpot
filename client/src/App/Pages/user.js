@@ -4,6 +4,7 @@ import { Card, Avatar, Divider, Input, Button  } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import '../../Styles/user.less'
+const utils=require('../../utils');
 
 export default class User extends React.Component {
     constructor() {
@@ -22,20 +23,8 @@ export default class User extends React.Component {
         this.getProfile();
     }
 
-    getProfile() {
-        const profile = {
-            id: 0,
-            profile_img: null,
-            name: "Andrei",
-            surname: "Alexandru",
-            email: "andreialex98@gmail.com",
-            phone: "0767582689",
-            cnp: "19216803",
-            dob: "14/06/1998",
-            blood: "Type A",
-            weight: "84kg",
-            height: "180cm"
-        }
+    async getProfile() {
+        const profile = await utils.request('/profile', 'GET');
 
         this.setState({ profile: profile })
     }
@@ -57,11 +46,12 @@ export default class User extends React.Component {
                     size={{ xs: 100, sm: 100, md: 100, lg: 100, xl: 100, xxl: 100 }} 
                     style={{ backgroundColor: '#87d068' }} 
                     icon={<UserOutlined />} 
+                    src={`${profile.picture}`}
                 />
 
                 <Card 
                     className="user_data" 
-                    title={`${profile.name} ${profile.surname}`} 
+                    title={`${profile.given_name} ${profile.family_name} `} 
                     extra={<Button onClick={this.editMode}>Edit</Button>}
                 >
                     <p>{edit ?
