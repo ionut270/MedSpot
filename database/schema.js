@@ -60,7 +60,7 @@ const CabSchema=new mongoose.Schema({
         "number_review" : Number,
         "comments" : [String]
     },
-    "long" : {type:mongoose.Decimal128, required:true},
+    "lng" : {type:mongoose.Decimal128, required:true},
     "lat" : {type:mongoose.Decimal128, required:true}
 },{collection:'Medical_cabinet'})
 

@@ -20,7 +20,7 @@ export default class Search extends React.Component{
             lat: null,
             lng: null
           };
-          this.search = [];
+       this.search = [];
     }
     
     componentDidMount(){
@@ -41,10 +41,7 @@ export default class Search extends React.Component{
     async getDocs(point){
        // this.search = await utils.request('/search', 'POST',point);
         this.setDocs(await utils.request('/search', 'POST',point));
-       // console.log(this.search.length);
-       // if (this.search.length > 0) 
-      //   
-        //}
+       
     }
  
     
@@ -62,24 +59,20 @@ export default class Search extends React.Component{
           <Marker 
       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
       position={this.center} />
-       <Marker 
-      icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-      position={{lat :40,
-        long : 20}} />
+     
 
-          {this.search.length > 0 ? this.search.map((d, key) =>
+          {this.search.length > 0 ? this.search.map((d, key) =>{ 
+              var position=
+                {lat : parseFloat(d.lat.$numberDecimal),
+                lng : parseFloat(d.long.$numberDecimal)
+              } ;
+              console.log(position);
+              return (
         <Marker key={key}
       icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"}
-      position={
-          {lat : d.lat.$numberDecimal,
-          long : d.long.$numberDecimal}} />
-        
-      
-      ): <div>Nimic</div>}
-
-
-
-
+      position={position} 
+        />
+      ) }) : <div>Nimic</div>}
 
           </>
         </GoogleMap>
