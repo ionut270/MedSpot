@@ -33,6 +33,7 @@ export default class App extends React.Component {
                 <Content className="Content">
                     {this.state.page === 'user' ? <User /> : null}
                     {this.state.page === 'bell' ? <Bell /> : null}
+                    {this.state.page === 'page' ? <Page /> : null}
                 </Content>
                 <Footer className="Footer"><APP_FOOTER changePage={this.changePage} /></Footer>
             </Layout>
