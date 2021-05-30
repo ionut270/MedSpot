@@ -1,14 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Select, DatePicker, Upload } from 'antd';
+import { Form, Input, Button, Checkbox, Select, DatePicker } from 'antd';
 import '../Styles/complete.less'
 
 import logo from '../props/logo4x.png'
 
 const utils  = require('../utils');
-const layout = {labelCol: {span: 8}, wrapperCol: {span: 16}};
-const tailLayout = {wrapperCol: {offset: 8,span: 16}};
-
-const normFile = (e) => {console.log('Upload event:', e); if (Array.isArray(e)) {return e;}return e && e.fileList;};
 
 export default class Complete extends React.Component {
     constructor(props) {
@@ -17,8 +13,11 @@ export default class Complete extends React.Component {
             user: this.props.user
         }
     }
-    onFinish = (values) => {
-        console.log('Success:', values);
+    onFinish = async (values) => {
+        this.props.loading('on');
+        await utils.request('/profile','PATCH',values);
+        this.props.loading('off');
+        window.location.reload();
     };
 
     onFinishFailed = (errorInfo) => {
@@ -29,34 +28,30 @@ export default class Complete extends React.Component {
         return (
             <div className="complete">
                 <img className="complete_logo" alt="medpot logo" src={logo} />
-                <Form className="complete_form" {...layout} name="profile_info" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
+                <Form className="complete_form" name="profile_info" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
                     <Form.Item label="CNP" name="cnp" rules={[{ required: true, message: 'Please input your CNP!' }]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Id card">
-                        <Form.Item name="id_card" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-                            <Upload.Dragger name="id_card" action={`${process.env.REACT_APP_SERVER}/upload/id_card?sessionid=${localStorage.sessionID}`}>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            </Upload.Dragger>
-                        </Form.Item>
+                        <Input className="complete_form_input" />
                     </Form.Item>
                     <Form.Item label="Date of birth" name="dob" rules={[{ required: true, message: 'Please input your date of birth!' }]}>
-                        <DatePicker format="YYYY-MM-DD" />
+                        <DatePicker className="complete_form_input" format="YYYY-MM-DD" />
+                    </Form.Item>
+                    <Form.Item label="Phone" name="phone">
+                        <Input className="complete_form_input" />
                     </Form.Item>
                     <Form.Item label="Weight" name="weight">
-                        <Input />
+                        <Input className="complete_form_input" />
                     </Form.Item>
                     <Form.Item label="Height" name="height">
-                        <Input />
+                        <Input className="complete_form_input" />
                     </Form.Item>
                     <Form.Item label="Medical Gender" name="gender" >
-                        <Select placeholder="Male or Female" allowClear>
+                        <Select className="complete_form_input" placeholder="Male or Female" allowClear>
                             <Select.Option value="male">Male</Select.Option>
                             <Select.Option value="female">Female</Select.Option>
                         </Select>
                     </Form.Item>
                     <Form.Item label="Blood type" name="blood_type" >
-                        <Select placeholder="A, B, AB or 0" allowClear>
+                        <Select className="complete_form_input" placeholder="A, B, AB or 0" allowClear>
                             <Select.Option value="A">A</Select.Option>
                             <Select.Option value="B">B</Select.Option>
                             <Select.Option value="AB">AB</Select.Option>
@@ -64,14 +59,12 @@ export default class Complete extends React.Component {
                         </Select>
                     </Form.Item>
 
-                    <Form.Item {...tailLayout} rules={[{ required: true, message: 'Due to new laws and regulations we need your consent in order to be able to process your data' }]} name="gdpr" valuePropName="checked">
-                        <Checkbox>I agree to GDPR</Checkbox>
+                    <Form.Item rules={[{ required: true, message: 'Due to new laws and regulations we need your consent in order to be able to process your data' }]} name="gdpr" valuePropName="checked">
+                        <Checkbox className="complete_form_input">I agree to GDPR</Checkbox>
                     </Form.Item>
 
-                    <Form.Item {...tailLayout}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-              </Button>
+                    <Form.Item className="complete_submit">
+                        <Button className="complete_submit_button" type="primary" htmlType="submit">Submit</Button>
                     </Form.Item>
                 </Form>
             </div>

@@ -36,7 +36,7 @@ module.exports = (app) => {
         req.user = await schema.user.findById(session.session.userId)
 
         // ask the user to enter the CNP
-        if(!req.user.cnp){
+        if(!req.user.cnp && req.path !== '/profile'){
             res.status(200).send({ user : req.user, auth: true, complete: false })
             return 0; 
         }

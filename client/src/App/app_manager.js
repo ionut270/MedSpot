@@ -6,9 +6,10 @@ import APP_HEADER from './Components/header'
 import APP_FOOTER from './Components/footer'
 
 // Import pages of the application
-import User from './Pages/user'
-import Bell from './Pages/bell'
-import Page from './Pages/page'
+import User     from './Pages/user'
+import Bell     from './Pages/bell'
+import Page     from './Pages/page'
+import Loading  from './Pages/loading'
 
 // Import styles
 import '../Styles/app_manager.less'
@@ -20,21 +21,25 @@ const { Header, Footer, Content } = Layout;
 export default class App extends React.Component {
     constructor(){
         super();
-        this.state = {page : ''}
+        this.state = {page : '', loading: false}
         // Bind the class object to the method
         this.changePage = this.changePage.bind(this)
+        this.loading = this.loading.bind(this);
     }
 
+    loading(state){ this.setState({loading: state==='on' ? true : false}) }
     changePage(page){ this.setState({page:page}); }
 
     render() {
+        var {loading, page} = this.state;
         return (
             <Layout className="App">
                 <Header className="Header"><APP_HEADER /></Header>
                 <Content className="Content">
-                    {this.state.page === 'user' ? <User /> : null}
-                    {this.state.page === 'bell' ? <Bell /> : null}
-                    {this.state.page === 'page' ? <Page /> : null}
+                    {loading ? <Loading /> : null }
+                    {page === 'user' ? <User loading={this.loading} /> : null}
+                    {page === 'bell' ? <Bell loading={this.loading} /> : null}
+                    {page === 'page' ? <Page loading={this.loading} /> : null}
                 </Content>
                 <Footer className="Footer"><APP_FOOTER changePage={this.changePage} /></Footer>
             </Layout>

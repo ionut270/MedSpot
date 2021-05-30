@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { Card, Avatar, Divider, Input, Button  } from 'antd';
+import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+
+import Data from './user/data'
+import Edit from './user/edit'
 
 import '../../Styles/user.less'
 const utils=require('../../utils');
@@ -19,23 +22,22 @@ export default class User extends React.Component {
         this.updateProfile = this.updateProfile.bind(this);
     }
 
-    componentDidMount() {
-        this.getProfile();
-    }
+    componentDidMount() { this.getProfile(); }
 
     async getProfile() {
+        this.props.loading('on')
         const profile = await utils.request('/profile', 'GET');
-
-        this.setState({ profile: profile })
+        this.setState({ profile: profile });
+        this.props.loading('off')
     }
 
     updateProfile(){
         // Some request to update the profile data
         this.getProfile();
-        this.setState({ edit: !this.state.edit });
+        this.setState({ edit: false });
     }
 
-    editMode() { this.setState({ edit: !this.state.edit }); }
+    editMode(state) { this.setState({ edit: state==='on' ? true : false }); }
 
     render() {
         var { edit, profile } = this.state;
@@ -48,48 +50,7 @@ export default class User extends React.Component {
                     icon={<UserOutlined />} 
                     src={`${profile.picture}`}
                 />
-
-                <Card 
-                    className="user_data" 
-                    title={`${profile.given_name} ${profile.family_name} `} 
-                    extra={<Button onClick={this.editMode}>Edit</Button>}
-                >
-                    <p>{edit ?
-                        <Input addonBefore="Email" defaultValue={profile.email} /> :
-                        `Email : ${profile.email}`}
-                    </p>
-                    <p>{edit ?
-                        <Input addonBefore="Phone" defaultValue={profile.phone} /> :
-                        `Phone : ${profile.phone}`}
-                    </p>
-                    <Divider></Divider>
-                    <p>{edit ?
-                        <Input addonBefore="CNP" defaultValue={profile.cnp} /> :
-                        `CNP : ${profile.cnp}`}
-                    </p>
-                    <p>{edit ?
-                        <Input addonBefore="Date of birth" defaultValue={profile.dob} /> :
-                        `Date of birth : ${profile.dob}`}
-                    </p>
-
-                    <Divider>Medical data</Divider>
-
-                    <p>{edit ?
-                        <Input addonBefore="Blood" defaultValue={profile.blood} /> :
-                        `Blood : ${profile.blood}`}
-                    </p>
-                    <p>{edit ?
-                        <Input addonBefore="Weight" defaultValue={profile.weight} /> :
-                        `Weight : ${profile.weight}`}
-                    </p>
-                    <p>{edit ?
-                        <Input addonBefore="Height" defaultValue={profile.height} /> :
-                        `Height : ${profile.height}`}
-                    </p>
-
-                    {edit ? <Divider></Divider> : null}
-                    {edit ? <Button primary onClick={this.updateProfile}>Submit</Button> : null}
-                </Card>
+                {!this.state.edit ? <Data profile={this.state.profile} editMode={this.editMode}/> : <Edit profile={this.state.profile} loading={this.props.loading} editMode={this.editMode} />}
             </div>
         )
     }
