@@ -8,6 +8,7 @@ import APP_FOOTER from './Components/footer'
 // Import pages of the application
 import User from './Pages/user'
 import Bell from './Pages/bell'
+import Page from './Pages/page'
 
 // Import styles
 import '../Styles/app_manager.less'
