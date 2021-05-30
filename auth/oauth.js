@@ -10,8 +10,6 @@ module.exports = (app) => {
         }
 
         if (!req.headers.sessionid) {
-            console.log('case 1')
-            console.log(req.headers)
             res.status(200).send({ auth: false })
             return 0;
         }
@@ -24,14 +22,12 @@ module.exports = (app) => {
 
         // If there is no session with this id
         if (session === null) {
-            console.log('case 2')
             res.status(200).send({ auth: false })
             return 0;
         }
 
         if (new Date(session.expires) < Date.now()) {
             // Delete the session and return access error
-            console.log('case 3')
             await schema.session.findByIdAndDelete(req.headers.sessionid)
             res.status(200).send({ auth: false })
             return 0;
