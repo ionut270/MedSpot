@@ -33,6 +33,7 @@ export default class Search extends React.Component{
                 };
                 this.center.lat=pos.lat;
                 this.center.lng=pos.lng;
+                console.log(this.center);
                 this.getDocs(this.center);
 
               });
@@ -63,8 +64,8 @@ export default class Search extends React.Component{
 
           {this.search.length > 0 ? this.search.map((d, key) =>{ 
               var position=
-                {lat : parseFloat(d.lat.$numberDecimal),
-                lng : parseFloat(d.long.$numberDecimal)
+                {lat:parseFloat(d.lat.$numberDecimal),
+                 lng:parseFloat(d.lng.$numberDecimal)
               } ;
               console.log(position);
               return (
