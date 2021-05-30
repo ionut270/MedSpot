@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema(
         given_name: { type: String, required: true },
         family_name: { type: String, required: true },
         picture: { type: String, required: true },
+        gender: {type: String},
         dob: { type: String },
         weight: { type: String },
         blood: { type: String, enum: ['A', 'B', 'AB', '0'] },

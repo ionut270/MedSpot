@@ -13,7 +13,7 @@ const path = require('path');
 // Init server props
 app.use(cors({
     credentials: true,
-    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'allowedHeaders': ['sessionId', 'Content-Type', 'x-requested-with'],
     'exposedHeaders': ['sessionId'],
     origin: ['http://localhost:3000', 'http://192.168.3.12:3000', 'http://bountymonkey.me']
 }));

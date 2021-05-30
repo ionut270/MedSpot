@@ -4,13 +4,14 @@ const schema = require('../database/schema');
 
 module.exports = (app) => {
     app.use(async (req, res, next) => {
-        
         if(req.path.match(/^\/api\/auth/)){
             next();
             return 0;
         }
 
         if (!req.headers.sessionid) {
+            console.log('case 1')
+            console.log(req.headers)
             res.status(200).send({ auth: false })
             return 0;
         }
@@ -23,18 +24,27 @@ module.exports = (app) => {
 
         // If there is no session with this id
         if (session === null) {
+            console.log('case 2')
             res.status(200).send({ auth: false })
             return 0;
         }
 
         if (new Date(session.expires) < Date.now()) {
             // Delete the session and return access error
+            console.log('case 3')
             await schema.session.findByIdAndDelete(req.headers.sessionid)
             res.status(200).send({ auth: false })
             return 0;
         }
 
         req.user = await schema.user.findById(session.session.userId)
+
+        // ask the user to enter the CNP
+        if(!req.user.cnp){
+            res.status(200).send({ user : req.user, auth: true, complete: false })
+            return 0; 
+        }
+
         next();
     })
 

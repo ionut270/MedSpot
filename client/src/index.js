@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App  from './App/app_manager';
 import Auth from './Auth/auth';
 import Loading from './Loading/loading';
+import Complete from './Complete/complete'
 
 // Import styles
 import './Styles/index.less'
@@ -16,16 +17,19 @@ const utils = require('./utils');
 class Comp extends React.Component {
   constructor() {
     super();
-    this.state = { auth: null}
+    this.state = { auth: null, complete: null, user: null }
   }
   async componentDidMount(){
     var session = await utils.request('/session','GET');
-    this.setState({auth: session.auth})
+    this.setState({auth: session.auth, complete: session.complete, user : session.user})
   }
 
   render = () => {
     if(this.state.auth === null) {
       return(<Loading />)
+    }
+    if(this.state.auth === true && this.state.complete === false){
+      return <Complete user={this.state.user} />
     }
     if (this.state.auth === true) {
       return (
