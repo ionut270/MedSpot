@@ -27,6 +27,7 @@ async function close() {
 
 
 
+
 /*Operation for Users*/
 /* 
 ----------------------------------------------
@@ -125,6 +126,27 @@ async function searchCabinet(email) {
     const result = await data.collection(process.env.DB_COL_CAB).findOne(filter, options);
     return result;
     //return await --->>>
+}
+
+function listCab(position){
+    
+    return new Promise(async (resolve,reject)=>{
+        const data = await connect();
+        const filter = {
+            "$and": [{"lat":{ "$lt" : position.lat+20}}],
+            "$and": [{"long":{ "$lt" : position.lng+20}}],
+            "$and": [{"long":{ "$gt" : position.lng-20}}],
+            "$and": [{"lat":{ "$gt" : position.lng-20}}]
+          
+           
+        }
+        const result = await data.collection(process.env.DB_COL_CAB).find(filter);
+        
+            resolve(result);
+        
+        
+    });
+    
 }
 
 /*Operation for Docs*/
@@ -357,3 +379,6 @@ async function selectComments(selectPost) {
 
 
 }
+
+
+module.exports = { listCab};

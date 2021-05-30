@@ -50,11 +50,27 @@ const DocsSchema=new mongoose.Schema({
 DocsSchema.index({ email: 1}, { unique: true })
 
 
+const CabSchema=new mongoose.Schema({
+    "email" : {type:String, required:true},
+    "name" : {type:String, required:true},
+    "phone_number" : {type:String, required:true},
+    "specialization" : [String],
+    "rating" : {
+        "points" : Number,
+        "number_review" : Number,
+        "comments" : [String]
+    },
+    "long" : {type:mongoose.Decimal128, required:true},
+    "lat" : {type:mongoose.Decimal128, required:true}
+},{collection:'Medical_cabinet'})
+
+
 
 
 module.exports = { 
     user: mongoose.model('User', UserSchema),
     docs:mongoose.model('Docs',DocsSchema),
-    session : mongoose.model('Session',SessionSchema)
+    session : mongoose.model('Session',SessionSchema),
+    cab:mongoose.model('Medical_cabinet',CabSchema)
 }
 
