@@ -49,7 +49,7 @@ export default class Search extends React.Component{
     
    
     render(){
-        return <LoadScript googleMapsApiKey="AIzaSyCgPxDaSjZAVutlq-imNn24j3V1eYemR2w">
+        return <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_ID}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={this.center}
