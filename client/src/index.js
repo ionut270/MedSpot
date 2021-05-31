@@ -27,23 +27,11 @@ class Comp extends React.Component {
 
   loading(state){ this.setState({loading: state==='on' ? true : false}) }
 
-  render = () => {
-    if(this.state.auth === null || this.state.loading ) {
-      return(<Loading />)
-    }
-    if(this.state.auth === true && this.state.complete === false){
-      return <Complete user={this.state.user} loading={this.loading}  />
-    }
-    if (this.state.auth === true) {
-      return (
-        <Router>
-          <Switch>
-            <Route path="/"> <App /></Route>
-          </Switch>
-        </Router>
-      )
-    }
-    return (<Auth></Auth>)
+  render() {    
+    if(this.state.auth === null || this.state.loading ) return <Loading />
+    if(this.state.auth === true && this.state.complete === false) return <Complete user={this.state.user} loading={this.loading}  />
+    if (this.state.auth === true) return <App />
+    return <Auth />
   }
 }
 
