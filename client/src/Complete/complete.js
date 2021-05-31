@@ -1,8 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Select, DatePicker } from 'antd';
+import {Button, Divider  } from 'antd';
 import '../Styles/complete.less'
 
 import logo from '../props/logo4x.png'
+import Patient from './patient';
+import Doctor from './doctor';
 
 const utils  = require('../utils');
 
@@ -10,8 +12,10 @@ export default class Complete extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.user
-        }
+            user: this.props.user,
+            page: null
+        };
+        this.pageSelect=this.pageSelect.bind(this);
     }
     onFinish = async (values) => {
         this.props.loading('on');
@@ -19,55 +23,51 @@ export default class Complete extends React.Component {
         this.props.loading('off');
         window.location.reload();
     };
+    handleSubmit = (e) => {
+        this.props.history.push('/ahana-psychometry/')
+      }
 
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+    pageSelect = (page) => {
+        this.setState({
+            page:page
+        })
+    }
+
     render() {
-        return (
-            <div className="complete">
-                <img className="complete_logo" alt="medpot logo" src={logo} />
-                <Form className="complete_form" name="profile_info" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
-                    <Form.Item label="CNP" name="cnp" rules={[{ required: true, message: 'Please input your CNP!' }]}>
-                        <Input className="complete_form_input" />
-                    </Form.Item>
-                    <Form.Item label="Date of birth" name="dob" rules={[{ required: true, message: 'Please input your date of birth!' }]}>
-                        <DatePicker className="complete_form_input" format="YYYY-MM-DD" />
-                    </Form.Item>
-                    <Form.Item label="Phone" name="phone">
-                        <Input className="complete_form_input" />
-                    </Form.Item>
-                    <Form.Item label="Weight" name="weight">
-                        <Input className="complete_form_input" />
-                    </Form.Item>
-                    <Form.Item label="Height" name="height">
-                        <Input className="complete_form_input" />
-                    </Form.Item>
-                    <Form.Item label="Medical Gender" name="gender" >
-                        <Select className="complete_form_input" placeholder="Male or Female" allowClear>
-                            <Select.Option value="male">Male</Select.Option>
-                            <Select.Option value="female">Female</Select.Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item label="Blood type" name="blood_type" >
-                        <Select className="complete_form_input" placeholder="A, B, AB or 0" allowClear>
-                            <Select.Option value="A">A</Select.Option>
-                            <Select.Option value="B">B</Select.Option>
-                            <Select.Option value="AB">AB</Select.Option>
-                            <Select.Option value="0">0</Select.Option>
-                        </Select>
-                    </Form.Item>
+        if (this.state.page){
+            if (this.state.page=="patient")
+                return <Patient></Patient>
+            else
+            return <Doctor></Doctor>
+        }else
+            return (
+                <div className="complete">
 
-                    <Form.Item rules={[{ required: true, message: 'Due to new laws and regulations we need your consent in order to be able to process your data' }]} name="gdpr" valuePropName="checked">
-                        <Checkbox className="complete_form_input">I agree to GDPR</Checkbox>
-                    </Form.Item>
+                    <img className="complete_logo" alt="medpot logo" src={logo} />
 
-                    <Form.Item className="complete_submit">
-                        <Button className="complete_submit_button" type="primary" htmlType="submit">Submit</Button>
-                    </Form.Item>
-                </Form>
-            </div>
-        )
+                    <div className= "complete_btn">
+                    <Button className="btn-patient" onClick={(e)=>{
+                        e.preventDefault();
+                        this.pageSelect("patient")
+                    }}>
+                        Patient
+                    </Button>
+
+                    <Divider type="vertical" >
+                        or
+                    </Divider>
+                    <Button className="btn-doctor"onClick={(e)=>{
+                        e.preventDefault();
+                        this.pageSelect("doctor")
+                    }}>
+                        Doctor
+                    </Button>
+                    </div>
+                </div>
+            )
     }
 }

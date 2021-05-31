@@ -17,8 +17,7 @@ app.use(cors({
     credentials: true,
     'allowedHeaders': ['sessionId', 'Content-Type', 'x-requested-with'],
     'exposedHeaders': ['sessionId'],
-    origin: ['https://bountymonkey.me','https://bountymonkey.me:80', 'https://localhost:3000']
-}));
+    origin: ['https://bountymonkey.me','https://bountymonkey.me:80', 'https://localhost:3000', 'http://localhost:3000']}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
