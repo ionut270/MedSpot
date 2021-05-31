@@ -6,11 +6,11 @@ import APP_HEADER from './Components/header'
 import APP_FOOTER from './Components/footer'
 
 // Import pages of the application
-import User     from './Pages/user'
+import User     from './Pages/user/user'
 import Bell     from './Pages/bell'
 import Search   from './Pages/search/search'
 import Loading  from './Pages/loading'
-import Home     from './Pages/home'
+import Home     from './Pages/home/home'
 import Message  from './Pages/message'
 
 // Import styles

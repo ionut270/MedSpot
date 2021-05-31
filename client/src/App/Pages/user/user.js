@@ -3,11 +3,11 @@ import React from 'react'
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import Data from './user/data'
-import Edit from './user/edit'
+import Data from './data'
+import Edit from './edit'
 
-import '../../Styles/user.less'
-const utils=require('../../utils');
+import '../../../Styles/user.less'
+const utils=require('../../../utils');
 
 export default class User extends React.Component {
     constructor() {
