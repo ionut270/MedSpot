@@ -33,7 +33,7 @@ export default class Patient extends React.Component {
                         <Input className="complete_form_input" />
                     </Form.Item>
                     <Form.Item label="Date of birth" name="dob" rules={[{ required: true, message: 'Please input your date of birth!' }]}>
-                        <DatePicker className="complete_form_input" format="YYYY-MM-DD" />
+                        <DatePicker className="complete_form_input" format={"YYYY-MM-DD"} />
                     </Form.Item>
                     <Form.Item label="Phone" name="phone">
                         <Input className="complete_form_input" />

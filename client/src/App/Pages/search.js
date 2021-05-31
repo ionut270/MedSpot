@@ -12,42 +12,45 @@ const containerStyle = { width: '100%', height: '100%' };
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: null, lng: null }
-    this.center = { lat: null, lng: null };
+    this.state = { center : {lat: null, lng: null}, search: [] }
     this.search = [];
-
   }
 
+  async componentDidMount() {
+    this.props.loading('on');
+    await new Promise((resolve,reject)=>{
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
 
-  componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+            var center = { lat : pos.lat, lng : pos.lng }
+            var search = await this.getDocs(this.state.center);
 
-          this.center.lat = pos.lat;
-          this.center.lng = pos.lng;
-
-          this.setCenter(pos);
-          this.getDocs(this.center);
-
-        });
-    }
+            this.setState({center : center, search: search})
+            resolve();
+          });
+      }
+    })
+    this.props.loading('off');
   }
-  async getDocs(point) { this.setDocs(await utils.request('/search', 'POST', point)) }
 
-  setCenter(val) { this.center = val; this.forceUpdate() }
-  setDocs(val) { this.search = val; this.forceUpdate() }
+  getDocs(point) { return new Promise(async (resolve,reject)=>{resolve(await utils.request('/search', 'POST', point))})}
 
   render() {
-    if(this.center.lat === null || this.center.lng === null) return null;
+
+    const {center, search} = this.state;
+
+    console.log(center);
+
+    if(center.lat === null || center.lng === null) return null;
     return (
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_ID}>
-        <GoogleMap mapContainerStyle={containerStyle} center={this.center} defaultZoom={14} zoom={14}>
+        <GoogleMap mapContainerStyle={containerStyle} center={center} clickableIcons={true} defaultZoom={14} zoom={14}>
 
-          <Marker position={this.center} />
+        <Marker position={center} />
 
-          <InfoBox position={this.center}>
+          <InfoBox position={center}>
             <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 7 }}>
               <div style={{ fontSize: 16, fontColor: `#08233B` }}>
                 <p>You are here!</p>
@@ -55,7 +58,7 @@ export default class Search extends React.Component {
             </div>
           </InfoBox> 
           
-          {this.search.length > 0 ? this.search.map((d, key) => {
+          {search.length > 0 ? search.map((d, key) => {
 
             var position = { lat: parseFloat(d.lat.$numberDecimal), lng: parseFloat(d.lng.$numberDecimal) };
             var rating = d.rating.points / d.rating.number_review;

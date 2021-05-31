@@ -26,11 +26,11 @@ export default class Edit extends React.Component {
         const dateFormat = 'YYYY-MM-DD';
         return (
             <Form className="edit_form complete_form" name="profile_info" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
-                <Form.Item label="CNP" name="cnp" rules={[{ message: 'Please input your CNP!' }]}>
+                <Form.Item label="CNP" name="cnp" rules={[{ required: true, message: 'Please input your CNP!' }]}>
                     <Input defaultValue={profile.cnp ? profile.cnp : '' } className="complete_form_input" />
                 </Form.Item>
-                <Form.Item label="Date of birth" name="dob" rules={[{ message: 'Please input your date of birth!' }]}>
-                    <DatePicker defaultValue={profile.dob? moment(profile.dob, dateFormat) : undefined} className="complete_form_input" format="YYYY-MM-DD" />
+                <Form.Item label="Date of birth" name="dob" rules={[{required: true, message: 'Please input your date of birth!' }]}>
+                    <DatePicker defaultValue={profile.dob ? moment(profile.dob, dateFormat) : null} className="complete_form_input" format={dateFormat} />
                 </Form.Item>
                 <Form.Item label="Phone" name="phone">
                     <Input defaultValue={profile.phone ? profile.phone : '' } className="complete_form_input" />
