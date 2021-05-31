@@ -4,18 +4,20 @@ require("dotenv").config();
 console.out = (str) => console.log(`${Date.now()} : ${str}`)
 
 // Server init
+const https = require('https')
 const express = require("express")
 const app = express();
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const fs = require('fs');
 
 // Init server props
 app.use(cors({
     credentials: true,
     'allowedHeaders': ['sessionId', 'Content-Type', 'x-requested-with'],
     'exposedHeaders': ['sessionId'],
-    origin: ['http://localhost:3000', 'http://192.168.3.12:3000', 'http://bountymonkey.me']
+    origin: ['https://bountymonkey.me','https://bountymonkey.me:80', 'https://localhost:3000']
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,4 +40,13 @@ require("./Routes/router")(app);
 app.listen(process.env.PORT, (err) => {
     if (err) console.error(err);
     else console.out(`App running on port ${process.env.PORT}`);
+});
+
+//https listener
+https.createServer({
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+}, app).listen(8081,(err)=>{
+    if(err) throw err;
+    console.log('Https running on 8081')
 });
