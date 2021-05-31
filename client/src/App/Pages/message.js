@@ -30,9 +30,8 @@ export default class Search extends React.Component {
           <Sider className="sider_message">List of users
             {users.map(user => {
               const username = user.name;
-              if ( username !== "Dominte Florin-Iulian")
-                return <Card hoverable = "true" className="card_message">{user.name}</Card>
-            })}
+                return <Card hoverable = "true" className="card_message" onClick="">{user.name}</Card>
+            }}
           </Sider>
           <Content style={{ textAlign: "center" }}>Content</Content>
         </Layout>
