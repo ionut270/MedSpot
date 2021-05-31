@@ -72,12 +72,23 @@ const FeedSchema=new mongoose.Schema({
     "dislikes" : Number
 },{collection:'Feed'})
 
+const ComSchema=new mongoose.Schema({
+    "post_id" : {type:String, required:true},
+    "date" : {type:String, required:true},
+    "responser_email" : {type:String, required:true},
+    "name" : {type:String, required:true},
+    "surname" : {type:String, required:true},
+    "comms" : {type:String, required:true}
+
+},{collection:'Comms'})
+
 
 module.exports = { 
     user: mongoose.model('User', UserSchema),
     docs:mongoose.model('Docs',DocsSchema),
     session : mongoose.model('Session',SessionSchema),
     cab:mongoose.model('Medical_cabinet',CabSchema),
-    feed:mongoose.model('Feed',FeedSchema)
+    feed:mongoose.model('Feed',FeedSchema),
+    com:mongoose.model('Comms',ComSchema)
 }
 
