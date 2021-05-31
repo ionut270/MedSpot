@@ -41,8 +41,6 @@ export default class Search extends React.Component {
 
     const {center, search} = this.state;
 
-    console.log(center);
-
     if(center.lat === null || center.lng === null) return null;
     return (
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_ID}>
