@@ -64,13 +64,20 @@ const CabSchema=new mongoose.Schema({
     "lat" : {type:mongoose.Decimal128, required:true}
 },{collection:'Medical_cabinet'})
 
-
+const FeedSchema=new mongoose.Schema({
+    "user_email" : {type:String, required:true},
+    "title" : {type:String, required:true},
+    "description" : {type:String, required:true},
+    "likes" : Number,
+    "dislikes" : Number
+},{collection:'Feed'})
 
 
 module.exports = { 
     user: mongoose.model('User', UserSchema),
     docs:mongoose.model('Docs',DocsSchema),
     session : mongoose.model('Session',SessionSchema),
-    cab:mongoose.model('Medical_cabinet',CabSchema)
+    cab:mongoose.model('Medical_cabinet',CabSchema),
+    feed:mongoose.model('Feed',FeedSchema)
 }
 
