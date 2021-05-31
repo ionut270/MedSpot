@@ -72,6 +72,7 @@ async function searchUser(email) {
     return result;
 }
 
+
 /*Operation for Cabinets*/
 /* 
 ----------------------------------------------
@@ -376,9 +377,7 @@ async function selectComments(selectPost) {
     await result.forEach(doc => console.log(doc));
     return result;
 
-
-
 }
 
 
-module.exports = { listCab};
+module.exports = { listCab,getAllUsers};
