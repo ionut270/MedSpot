@@ -1,5 +1,8 @@
 import React from 'react'
 import { GoogleMap, LoadScript, Marker, InfoBox } from '@react-google-maps/api';
+import {
+  HomeOutlined,
+} from '@ant-design/icons';
 
 const utils = require('../../utils');
 
@@ -37,9 +40,21 @@ export default class Search extends React.Component {
   setDocs(val) { this.search = val; this.forceUpdate() }
 
   render() {
+    if(this.center.lat === null || this.center.lng === null) return null;
     return (
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_ID}>
-        <GoogleMap mapContainerStyle={containerStyle} defaultCenter={this.center} center={this.center} defaultZoom={14} zoom={14}>
+        <GoogleMap mapContainerStyle={containerStyle} center={this.center} defaultZoom={14} zoom={14}>
+
+          <Marker position={this.center} />
+
+          <InfoBox position={this.center}>
+            <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 7 }}>
+              <div style={{ fontSize: 16, fontColor: `#08233B` }}>
+                <p>You are here!</p>
+              </div>
+            </div>
+          </InfoBox> 
+          
           {this.search.length > 0 ? this.search.map((d, key) => {
 
             var position = { lat: parseFloat(d.lat.$numberDecimal), lng: parseFloat(d.lng.$numberDecimal) };
@@ -62,16 +77,6 @@ export default class Search extends React.Component {
               </div>
             )
           }) : <div>Nimic</div>}
-
-          <Marker icon={"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"} position={this.center} />
-
-          <InfoBox position={this.center}>
-            <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 7 }}>
-              <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-                <p>You are here!</p>
-              </div>
-            </div>
-          </InfoBox>
         </GoogleMap>
       </LoadScript>
     )

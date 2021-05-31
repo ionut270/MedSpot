@@ -28,8 +28,8 @@ export default class Complete extends React.Component {
     pageSelect      = (page)        => this.setState({ page: page })
 
     render() {
-        if (this.state.page === "patient")  return <Patient />
-        if (this.state.page === "doctor")   return <Doctor />
+        if (this.state.page === "patient")  return <Patient user={this.props.user} loading={this.props.loading} />
+        if (this.state.page === "doctor")   return <Doctor  user={this.props.user} loading={this.props.loading} />
         return (
             <div className="complete">
                 <img className="complete_logo" alt="medpot logo" src={logo} />
