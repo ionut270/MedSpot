@@ -31,7 +31,7 @@ export default class Search extends React.Component {
             {users.map(user => {
               const username = user.name;
                 return <Card hoverable = "true" className="card_message" onClick="">{user.name}</Card>
-            }}
+            })}
           </Sider>
           <Content style={{ textAlign: "center" }}>Content</Content>
         </Layout>
