@@ -12,10 +12,8 @@ const utils=require('../../utils');
 export default class User extends React.Component {
     constructor() {
         super();
-        this.state = {
-            edit: false,
-            profile: {}
-        }
+        this.state = { edit: false, profile: {} }
+
         // bind state object to class methods
         this.editMode = this.editMode.bind(this);
         this.getProfile = this.getProfile.bind(this);
@@ -50,7 +48,7 @@ export default class User extends React.Component {
                     icon={<UserOutlined />} 
                     src={`${profile.picture}`}
                 />
-                {!this.state.edit ? <Data profile={this.state.profile} editMode={this.editMode}/> : <Edit profile={this.state.profile} loading={this.props.loading} editMode={this.editMode} />}
+                {!edit ? <Data profile={profile} editMode={this.editMode}/> : <Edit profile={profile} loading={this.props.loading} editMode={this.editMode} />}
             </div>
         )
     }

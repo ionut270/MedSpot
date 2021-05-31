@@ -1,11 +1,9 @@
 import React from 'react';
 
-import { Card, Divider, Input, Button } from 'antd';
+import { Card, Divider, Button } from 'antd';
 
 export default class Data extends React.Component {
-    constructor(props){
-        super(props);
-    }
+    constructor(props){ super(props); this.state={} }
     render() {
         var {editMode, profile} = this.props;
         return (

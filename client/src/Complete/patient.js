@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Select, DatePicker, Divider } from 'antd';
+import { Form, Input, Button, Checkbox, Select, DatePicker } from 'antd';
 import '../Styles/complete.less'
 
 import logo from '../props/logo4x.png'

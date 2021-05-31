@@ -43,10 +43,7 @@ app.listen(process.env.PORT, (err) => {
 });
 
 //https listener
-https.createServer({
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-}, app).listen(8081,(err)=>{
+https.createServer({ key: fs.readFileSync('key.pem'), cert: fs.readFileSync('cert.pem')}, app).listen(8081,(err)=>{
     if(err) throw err;
     console.log('Https running on 8081')
 });
