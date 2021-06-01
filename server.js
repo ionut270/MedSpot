@@ -4,13 +4,11 @@ require("dotenv").config();
 console.out = (str) => console.log(`${Date.now()} : ${str}`)
 
 // Server init
-const https = require('https')
 const express = require("express")
 const app = express();
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const fs = require('fs');
 
 // Init server props
 app.use(cors({
@@ -44,10 +42,4 @@ require("./Routes/router")(app);
 app.listen(process.env.PORT, (err) => {
     if (err) console.error(err);
     else console.out(`App running on port ${process.env.PORT}`);
-});
-
-//https listener
-https.createServer({ key: fs.readFileSync('key.pem'), cert: fs.readFileSync('cert.pem')}, app).listen(8081,(err)=>{
-    if(err) throw err;
-    console.log('Https running on 8081')
 });

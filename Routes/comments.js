@@ -1,9 +1,5 @@
 const schema = require('../database/schema');
 
-// module.exports = async (req, res) => {
-//   var comments = await schema.comment.find({ post_id : req.body.id });
-//   res.send(comments);
-// }
 
 module.exports = (app) => {
   app.get('/comments/:id', async (req, res) => {
