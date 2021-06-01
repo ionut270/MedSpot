@@ -19,3 +19,55 @@
 .ant-card-head-title, .ant-card-body{
     padding-bottom: .5em !important;
 }
+
+
+.home_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.posts_container{
+    min-height: 84vh;
+}
+
+@media screen and (orientation:portrait) {
+    .posts_container{
+        width: 90vw !important;
+    }
+    .post_form{
+        width: 90vw !important;
+    }
+}
+@media screen and (orientation:landscape) {
+    .posts_container{
+        width: 500px !important;
+    }
+    .post_form{
+        width: 500px !important;
+    }
+}
+
+.post_input_container{
+    width: 100%;
+}
+
+.post_form{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    width: 100%;
+
+    bottom: 2.5em;
+
+    display: flex;
+    justify-content: center;
+}
+.no_data{
+    height: 50vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}

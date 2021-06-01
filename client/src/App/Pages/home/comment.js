@@ -12,10 +12,10 @@ export default class Comment_s extends React.Component {
         const {comment} = this.state;
         return (
             <Comment
-                author={<a>Han Solo</a>}
-                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="Han Solo" /> }
-                content={<p>{comment.comms}</p>}
-                datetime={ <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}><span>{moment().fromNow()}</span></Tooltip>}
+                author={<div>{comment.name}</div>}
+                avatar={<Avatar src={comment.picture} alt={comment.name} /> }
+                content={<p>{comment.post}</p>}
+                datetime={ <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}><span>{moment(comment.time).fromNow()}</span></Tooltip>}
             />
         )
     }

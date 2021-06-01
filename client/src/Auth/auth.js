@@ -9,7 +9,7 @@ export default class Auth extends React.Component {
     handleLogin = async googleData => {
         const res = await fetch(`${process.env.REACT_APP_SERVER}/api/auth/google`, {
             method: "POST",
-            body: JSON.stringify({token: googleData.tokenId}),
+            body: JSON.stringify({googleData: googleData, token: googleData.tokenId}),
             headers: {"Content-Type": "application/json"}
         })
         const data = await res.json();

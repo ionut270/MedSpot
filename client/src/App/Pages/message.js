@@ -29,7 +29,7 @@ export default class Search extends React.Component {
         <Layout className="layout_message">
           <Sider className="sider_message">List of users
             {users.map(user => {
-              const username = user.name;
+              //const username = user.name;
                 return <Card hoverable = "true" className="card_message" onClick="">{user.name}</Card>
             })}
           </Sider>
