@@ -1,52 +1,68 @@
 import React from 'react';
 
-import { Select } from 'antd';
+import { SendOutlined } from '@ant-design/icons';
+import { Select, Form, Button, Empty } from 'antd';
+
+import Diagnostic from './diagnostic'
+
+import '../../../Styles/search.less'
+
 const { Option } = Select;
 
 const utils = require('../../../utils')
-
-const children = [];
-for (let i = 10; i < 36; i++) {
-    children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-}
 export default class Search extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            children : []
+            children: [],
+            simptoms : [],
+            diagnostics : []
         }
+        this.getDiagnostic = this.getDiagnostic.bind(this);
     }
-    async componentDidMount(){
-        const data = await utils.request('/health/simptoms','GET');
-        console.log(data);
-        this.setState({children: data.map(simptom=><Option key={simptom.Name} val={simptom.ID}>{simptom.Name}</Option>)})
+    async componentDidMount() {
+        const data = await utils.request('/health/simptoms', 'GET');
+        this.setState({simptoms : data, children: data.map(simptom => <Option key={simptom.Name} val={simptom.ID}>{simptom.Name}</Option>) })
     }
+
+    async getDiagnostic(values) {
+        //Convert simptomsstring to array of id's
+        var simptoms =  values.simptoms.map(simptom=> this.state.simptoms.filter(x=>x.Name===simptom)[0].ID)
+
+        const data = await utils.request(`/health/diagnosis?simptoms=${JSON.stringify(simptoms)}`, 'GET');
+        this.setState({diagnostics: data});
+    }
+
     render() {
+        const {diagnostics} = this.state;
         return (
             <div className="search_container">
-                <Select
-                    mode="multiple"
-                    placeholder="Please select simptoms"
-                    style={{ width: '90vw', marginLeft : "5vw", marginTop: "1em" }}>
-                    {this.state.children}
-                </Select>
+                <Form className="simptoms_form" onFinish={this.getDiagnostic} name="diagnostic" >
+                    <Form.Item 
+                        className="simptoms_input"
+                        name="simptoms" 
+                        rules={[{ required: true, message: 'To generate a diagnostic please enter a few simptoms first' }]} 
+                        valuePropName='value'
+                    >
+                        <Select
+                            mode="multiple"
+                            placeholder="Please select simptoms"
+                            className="select_simptoms" >
+                            {this.state.children}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item >
+                        <Button className="comment_button" type="primary" htmlType="submit"><SendOutlined /></Button>
+                    </Form.Item>
+                </Form>
+
+                {diagnostics.map((diagnostic,key)=>{
+                    return <Diagnostic key={key} diagnostic={diagnostic}/>
+                })}
+
+                {diagnostics.length === 0 ? <Empty /> : null }
+
             </div>
         )
     }
 }
-
-/**
- * 2 types of search
- *
- * - 1 diagnostic
- * + list of conditions from store
- * + user data from db
- * -> conditions & details
- * -> What kind of cabinet do u need to search
- * -> 2
- *
- * - 2 medical cabinet
- * + list of cabinets in area
- * + select cabinet -> open map
- * + appointment button with call or calendar if available
- */
