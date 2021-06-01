@@ -24,6 +24,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname + `/client/build/static`)));
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+})
+
 // Session handler
 require('./auth/session')(app);
 
