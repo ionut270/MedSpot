@@ -7,7 +7,7 @@ import APP_FOOTER from './Components/footer'
 
 // Import pages of the application
 import User     from './Pages/user/user'
-import Bell     from './Pages/bell'
+// import Bell     from './Pages/bell'
 import Search   from './Pages/search/search'
 import Loading  from './Pages/loading'
 import Home     from './Pages/home/home'
@@ -40,7 +40,7 @@ export default class App extends React.Component {
                 <Content className="Content">
                     {loading ? <Loading /> : null }
                     {page === 'user' ? <User loading={this.loading} /> : null}
-                    {page === 'bell' ? <Bell loading={this.loading} /> : null}
+                    {/* {page === 'bell' ? <Bell loading={this.loading} /> : null} */}
                     {page === 'search' ? <Search loading={this.loading} /> : null}
                     {page === 'home' ? <Home loading={this.loading} /> : null}
                     {page === "rss" ? <Rss loading={this.loading} /> : null}

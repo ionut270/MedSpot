@@ -43,9 +43,6 @@ export default class Header extends React.Component{
             visible={visible}
             key={placement}
           >
-            <p>Settings</p>
-            <p>About</p>
-            <p>Support</p>
             <Button onClick={this.logOut}>Log out</Button>
           </Drawer>
         </>

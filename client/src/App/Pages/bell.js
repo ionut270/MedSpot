@@ -7,9 +7,6 @@ export default class Bell extends React.Component{
       }
    
     render(){
-       
-    
-        return( <div>Bell</div>
-        )
+        return( <div>Bell</div>)
     }
 }

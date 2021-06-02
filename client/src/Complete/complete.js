@@ -37,12 +37,12 @@ export default class Complete extends React.Component {
                     <Divider className="complete_divider">Hello !</Divider>
                     <p>We just want to make sure we are providing you with the right features according to your needs.</p>
                     <p>We just need a bit more information about you.</p>
-                    <Divider className="complete_divider">First, you are ..</Divider>
+                    <Divider className="complete_divider">Let's continue</Divider>
                 </div>
                 <div className="complete_btn">
-                    <Button className="btn-patient" onClick={(e) => { e.preventDefault(); this.pageSelect("patient") }}>A user</Button>
-                    <Divider className="complete_divider">OR</Divider>
-                    <Button className="btn-doctor"  onClick={(e) => { e.preventDefault(); this.pageSelect("doctor") }}>A doctor</Button>
+                    <Button className="btn-patient" onClick={(e) => { e.preventDefault(); this.pageSelect("patient") }}>Proceed to the form</Button>
+                    {/* <Divider className="complete_divider">OR</Divider>
+                    <Button className="btn-doctor"  onClick={(e) => { e.preventDefault(); this.pageSelect("doctor") }}>A doctor</Button> */}
                 </div>
             </div>
         )

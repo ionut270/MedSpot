@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Menu } from 'antd';
-import { HomeOutlined, SearchOutlined, UserOutlined, BellOutlined, GlobalOutlined } from '@ant-design/icons';
+import { HomeOutlined, SearchOutlined, UserOutlined, GlobalOutlined } from '@ant-design/icons';
 
 import '../../Styles/footer.less'
 
@@ -27,7 +27,7 @@ export default class Footer extends React.Component {
                 <Menu.Item key="home" icon={<HomeOutlined />} />
                 <Menu.Item key="search" icon={<SearchOutlined />} />
                 <Menu.Item key="rss" icon={<GlobalOutlined />} />
-                <Menu.Item key="bell" icon={<BellOutlined />} />
+                {/* <Menu.Item key="bell" icon={<BellOutlined />} /> */}
                 <Menu.Item key="user" icon={<UserOutlined />} />
             </Menu>
         );

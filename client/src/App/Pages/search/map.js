@@ -1,11 +1,12 @@
 import React from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-const containerStyle = { width: '100%', height: '30em' };
+const containerStyle = { width: '100%', height: '30em', right: '0', margin: "0" };
 
 export default class Map extends React.Component {
     render() {
         const { center, target } = this.props;
+        console.log(center,target);
         return (
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP_ID}>
                 <GoogleMap className="google_maps_map" center={target} mapContainerStyle={containerStyle} clickableIcons={true} defaultZoom={7} zoom={7}>
