@@ -4,11 +4,10 @@ module.exports = (app) => {
         const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?` +
             `input=${req.query.type.match('medicine')!== null ? req.query.type : req.query.type + ' medicine'}` +
             `&inputtype=textquery` +
-            `&fields=photos,formatted_address,name,rating,opening_hours,geometry,name` +
+            `&fields=photos,formatted_address,name,rating,opening_hours,geometry,name,place_id` +
             `&key=${process.env.PLACES_API_KEY}` +
             `&rankby=distance` +
             `&locationbias=${req.query.locationbias}`
-        console.log(url);
         const data = await fetch(url).then(res => res.json());
         res.send(data);
     })
